@@ -1,0 +1,147 @@
+Let's start by figuring out how many dinosaurs we have. Count the number of dinosaurs.
+
+dinosaurs=# select MAX(id) from dinos;
+ max 
+-----
+ 331
+(1 row)
+
+We want to open up our own version of Jurassic Park, but this time only with dinosaurs who are actually from the Jurassic period. Find all the dinosaurs from the Jurassic period.
+
+name         
+---------------------
+ Yuanmousaurus
+ Yinlong
+ Yingshanosaurus
+ Yimenosaurus
+ Yangchuanosaurus
+ Yandusaurus
+ Vulcanodon
+ Tuojiangosaurus
+ Torvosaurus
+ Yunnanosaurus
+ Sinraptor
+ Stegosaurus
+ Seismosaurus
+ Segisaurus
+ Scutellosaurus
+ Scelidosaurus
+ Saurophaganax
+ Sarcosaurus
+ Shunosaurus
+ Rhoetosaurus
+ Poekilopleuron
+ Podokesaurus
+ Piatnitzkysaurus
+ Proceratosaurus
+ Patagosaurus
+ Pantydraco
+ Datousaurus
+ Ornitholestes
+ Omeisaurus
+ Nqwebasaurus
+ Monolophosaurus
+ Othnielia
+ Megalosaurus
+ Massospondylus
+ Marshosaurus
+ Mamenchisaurus
+ Lufengosaurus
+ Lophostropheus
+ Lexovisaurus
+ Metriacanthosaurus
+ Lesothosaurus
+ Kentrosaurus
+ Juravenator
+ Jingshanosaurus
+ Janenschia
+ Huayangosaurus
+ Heterodontosaurus
+ Kotasaurus
+ Guanlong
+ Giraffatitan
+ Gasosaurus
+ Gargoyleosaurus
+ Eustreptospondylus
+ Europasaurus
+ Haplocanthosaurus
+ Emausaurus
+ Euhelopus
+ Elaphrosaurus
+ Dubreuillosaurus
+ Dryosaurus
+ Diplodocus
+ Dilophosaurus
+ Dicraeosaurus
+ Cryolophosaurus
+ Compsognathus
+ Coelurus
+ Chungkingosaurus
+ Chirostenotes
+ Chinshakiangosaurus
+ Chaoyangsaurus
+ Dacentrurus
+ Cetiosaurus
+ Cetiosauriscus
+ Ceratosaurus
+ Chialingosaurus
+ Brachytrachelopan
+ Brachiosaurus
+ Bellusaurus
+ Barosaurus
+ Barapasaurus
+ Camarasaurus
+ Anchisaurus
+ Amygdalodon
+ Ammosaurus
+ Allosaurus
+ Agilisaurus
+ Apatosaurus
+ Lapparentosaurus
+ Hesperosaurus
+ Camptosaurus
+ Aardonyx
+ Archaeopteryx
+(92 rows)
+
+Jurassic Park was a huge success for us. Now we want to open up a sequel park: Cretaceous Park. This time though, we're a little more organized, and we want to know how much space all these dinosaurs are going to take up. Find the total sum length of all the dinosaurs from the Cretaceous period.
+
+dinosaurs=# select sum(length) from dinos where period = 'Cretaceous';
+   sum   
+---------
+ 1366.45
+(1 row)
+
+Great news! Our board of investors recently secured us a large island where we can put all the dinosaurs from both Jurassic Park and Cretaceous Park. This new park will be called Juraceous Park, which according to our focus groups really rolls off the tongue. Find all the dinosaurs from either the Jurassic OR Cretaceous periods, and order them by their species name alphabetically.
+
+dinosaurs=# select name from dinos where period = 'Jurassic' or period = 'Cretaceous' ORDER BY name  ASC;
+
+
+Saurischians are the "lizard hipped" order of dinosaurs, and one of the two main branches. All carnivorous dinosaurs are Saurischians, but not all Saurischians are carnivorous. Find all the dinosaurs from the t_order Saurischia that are Herbivorous.
+
+dinosaurs=# select name from dinos where t_order = 'Saurischia' and diet = 'Herbivorous';
+68 Rows
+
+Dinosaur names are hard to remember. Find the shortest dinosaur, and rename it Shortie.
+
+dinosaurs=# update dinos set name = 'shortie' where name = (select min(name) from dinos);
+UPDATE 1
+ id  |  name   |                                   taxonomy                                   | species  | length |  period  |    diet     |         created_at         |         updated_at         |  t_order   
+-----+---------+------------------------------------------------------------------------------+----------+--------+----------+-------------+----------------------------+----------------------------+------------
+ 331 | shortie | Dinosauria, Saurischia, Sauropodomorpha, Prosauropoda, Anchisauria, Aardonyx | Celestae |      8 | Jurassic | Herbivorous | 2017-03-24 18:56:22.908402 | 2017-03-24 18:57:00.066825 | Saurischia
+(1 row)
+
+
+
+It's the first day of Dino School, and we're doing roll call. Find the alphabetically first dinosaur, so we can make sure they're present for class.
+
+dinosaurs=# select name from dinos  order by name asc fetch first 5 rows only;
+       name       
+------------------
+ Abelisaurus
+ Achelousaurus
+ Achillobator
+ Acrocanthosaurus
+ Aegyptosaurus
+(5 rows)
+
